@@ -35,6 +35,27 @@ enum Dagu_ComMotionCmd
 
 /*****************************************
  *                                       *
+ * COMMOTION MOTOR ERROR LOG FLAGS       *
+ *                                       *
+ *****************************************/
+
+// These values indicate conditions such 
+// as low battery voltage can be returned
+// by the request status packet command
+
+enum Dagu_ComMotionMotorError
+{
+    DCME_M1_OVER_CURRENT = B00000001,
+    DCME_M2_OVER_CURRENT = B00000010,
+    DCME_M3_OVER_CURRENT = B00000100,
+    DCME_M4_OVER_CURRENT = B00001000,
+    DCME_LOW_BATTERY = B00010000,
+    DCME_LOW_BATTERY_SHUTDOWN = B00100000
+};
+
+
+/*****************************************
+ *                                       *
  * COMMOTION BASIC MODES                 *
  *                                       *
  *****************************************/

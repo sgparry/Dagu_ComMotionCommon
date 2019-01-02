@@ -366,6 +366,29 @@ struct __attribute__((packed)) Dagu_ComMotionEncoderConfigX
   Dagu_ComMotionEncoderConfigX() : flags(0) {}
 };
 
+struct __attribute__((packed)) Dagu_ComMotionEncoderConfigFlagsPacket1  :
+public Dagu_ComMotionPacketBase
+{
+  Dagu_ComMotionEncoderConfigX encoderConfigX;
+  Dagu_ComMotionEncoderConfigFlagsPacket1
+  (
+    Dagu_ComMotionEncoderFlags flags
+  ) :
+    Dagu_ComMotionPacketBase(DCC_ENCODER_CONFIG),
+    encoderConfigX(flags)
+  {}
+  
+  Dagu_ComMotionEncoderConfigFlagsPacket1
+  (
+    const Dagu_ComMotionEncoderConfigX& encoderConfigX
+  ) :
+    Dagu_ComMotionPacketBase(DCC_ENCODER_CONFIG),
+    encoderConfigX(encoderConfigX)
+  {}
+} ;
+  
+static_assert(sizeof(Dagu_ComMotionEncoderConfigFlagsPacket1) == 2, "Encoder config flag packet size borked!");
+
 struct __attribute__((packed)) Dagu_ComMotionEncoderConfigPacketX1  :
 public Dagu_ComMotionEncoderConfigPacket1
 {
@@ -403,6 +426,34 @@ static_assert(sizeof(Dagu_ComMotionEncoderConfigPacketX1) == 8, "Encoder extende
 // allowing each of the four possible to be configured 
 // indivdually; for builds including a mixture of motors
 // and / or encoders.
+
+struct __attribute__((packed)) Dagu_ComMotionEncoderConfigFlagsPacket4  :
+public Dagu_ComMotionPacketBase
+{
+  Dagu_ComMotionEncoderConfigX encoderConfigXs[4];
+  Dagu_ComMotionEncoderConfigFlagsPacket4
+  (
+    Dagu_ComMotionEncoderFlags flags0, Dagu_ComMotionEncoderFlags flags1, Dagu_ComMotionEncoderFlags flags2, Dagu_ComMotionEncoderFlags flags3
+  ) :
+    Dagu_ComMotionPacketBase(DCC_ENCODER_CONFIG),
+    encoderConfigXs({
+      Dagu_ComMotionEncoderConfigX(flags0), 
+      Dagu_ComMotionEncoderConfigX(flags1), 
+      Dagu_ComMotionEncoderConfigX(flags2), 
+      Dagu_ComMotionEncoderConfigX(flags3)
+    })
+  {}
+  
+  Dagu_ComMotionEncoderConfigFlagsPacket4
+  (
+    Dagu_ComMotionEncoderConfigX encoderConfigXs[4]
+  ) :
+    Dagu_ComMotionPacketBase(DCC_ENCODER_CONFIG),
+    encoderConfigXs({encoderConfigXs[0],encoderConfigXs[1],encoderConfigXs[2],encoderConfigXs[3]})
+  {}
+} ;
+  
+static_assert(sizeof(Dagu_ComMotionEncoderConfigFlagsPacket4) == 5, "Encoder config flag packet size borked!");
 
 struct __attribute__((packed)) Dagu_ComMotionEncoderConfigPacketX4  :
 public Dagu_ComMotionEncoderConfigPacket4

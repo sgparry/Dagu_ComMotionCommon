@@ -104,6 +104,7 @@ enum Dagu_ComMotionConfig
   // the speeds commanded by the host
   // go directly to the pwm outputs to the
   // motors.
+  DCC_YES_ENCODERS = 0,
   DCC_NO_ENCODERS = 16,
 };
 
@@ -642,7 +643,7 @@ public Dagu_ComMotionPacketBase
     // Bit 5: Returns 1 byte, the error log for the motors.
     // Bit 6: Clears the error logs. If bit 5 or 6 are high then those error logs will be read first.
     // Bit 7: Used to indicate internal communication - return the data to the other MCU, rather than the host MCU.
-    DR_ENCODERS = 1, DR_ENCODERS_RESET = 2, DR_CURRENT_DRAW = 4,
+    DR_NONE = 0, DR_ENCODERS = 1, DR_ENCODERS_RESET = 2, DR_CURRENT_DRAW = 4,
     DR_ANALOG_VALS_MCU1 = 8, DR_MCU_NUM_MCU2 = 8, DR_ANALOG_VALS_MCU2 = 16, DR_MCU_NUM_MCU1 = 16,
     DR_MOTOR_ERR_LOG = 32, DR_CLEAR_MOTOR_ERR_LOG = 64, DR_INTERNAL = 128
   } dataRequired : 8;
@@ -692,7 +693,7 @@ public Dagu_ComMotionStatusRequestPacket
 {
   enum DataRequiredX
   {
-    DRX_MAX_PULSE = 1, DRX_PULSE = 2, DRX_PWM =4, DRX_STALLED = 8
+    DRX_NONE = 0, DRX_MAX_PULSE = 1, DRX_PULSE = 2, DRX_PWM =4, DRX_STALLED = 8
   } dataRequiredX : 8;
   
   Dagu_ComMotionStatusRequestPacketX(DataRequired dataRequired, DataRequiredX dataRequiredX) :

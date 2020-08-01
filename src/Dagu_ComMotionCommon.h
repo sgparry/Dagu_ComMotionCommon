@@ -534,8 +534,7 @@ struct __attribute__((packed)) Dagu_ComMotionSerialConfig {
 };
 
 struct __attribute__((packed)) Dagu_ComMotionSerialConfigPacket  :
-public Dagu_ComMotionPacketBase
-{
+public Dagu_ComMotionPacketBase {
   Dagu_ComMotionSerialConfigPacket (
     uint16_t baudRatePort1,
     uint16_t baudRatePort2,
